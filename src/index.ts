@@ -1,8 +1,9 @@
 import { User } from './User'
 
-const user = new User({ id: 1 })
+const user = new User({ id: 2 })
 
-user.events.on('click', () => {
-  console.log('Its all about how to live')
+user.on('change', () => {
+  console.log(user)
 })
-user.events.trigger('click')
+
+user.fetch()
