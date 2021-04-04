@@ -11,4 +11,7 @@ export class Attributes<T> {
       ...update,
     }
   }
+  getAll(): T {
+    return this.data
+  }
 }
