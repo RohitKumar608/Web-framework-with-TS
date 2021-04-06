@@ -21,7 +21,12 @@ export class UserForm {
   handleSetAge = (): void => {
     this.model.setRandomAge()
   }
-  handleSetName(): void {}
+  handleSetName = (): void => {
+    const input = this.parent.querySelector('input')
+    if (input && input.value) {
+      this.model.set({ name: input.value })
+    }
+  }
 
   bindEvents(fragment: DocumentFragment): void {
     const eventsMap = this.eventsMap()
@@ -39,7 +44,7 @@ export class UserForm {
       <h1>User Form</h1>
       <div>User name: ${this.model.get('name')}</div>
       <div>User age: ${this.model.get('age')}</div>
-      <input />
+      <input class='user-name' />
       <button class="set-name">Set Name</button>
       <button  class="set-agr">Set Random Age</button>
     </div>
