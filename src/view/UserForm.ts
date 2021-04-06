@@ -1,5 +1,15 @@
+import { User } from '../models/User'
+
 export class UserForm {
-  constructor(public parent: Element) {}
+  constructor(public parent: Element, public model: User) {
+    this.bindModel()
+  }
+
+  bindModel(): void {
+    this.model.on('change', () => {
+      this.render()
+    })
+  }
 
   eventsMap(): { [key: string]: () => void } {
     return {
@@ -8,7 +18,9 @@ export class UserForm {
     }
   }
 
-  handleSetAge(): void {}
+  handleSetAge = (): void => {
+    this.model.setRandomAge()
+  }
   handleSetName(): void {}
 
   bindEvents(fragment: DocumentFragment): void {
@@ -23,15 +35,19 @@ export class UserForm {
 
   template(): string {
     return `
-      <div>
-        <h1> User Form </h1>
-        <input />
-        <button>Click Here</button>
-      </div>
-    `
+    <div>
+      <h1>User Form</h1>
+      <div>User name: ${this.model.get('name')}</div>
+      <div>User age: ${this.model.get('age')}</div>
+      <input />
+      <button class="set-name">Set Name</button>
+      <button  class="set-agr">Set Random Age</button>
+    </div>
+  `
   }
 
   render(): void {
+    this.parent.innerHTML = ''
     const templateElement = document.createElement('template')
     templateElement.innerHTML = this.template()
     this.bindEvents(templateElement.content)
