@@ -5,9 +5,12 @@ export class UserForm extends View<User, UserProps> {
     return {
       'click:.set-agr': this.handleSetAge,
       'click:.set-name': this.handleSetName,
+      'click:.save-user': this.handleSaveUser,
     }
   }
-
+  handleSaveUser = (): void => {
+    this.model.save()
+  }
   handleSetAge = (): void => {
     this.model.setRandomAge()
   }
@@ -31,6 +34,7 @@ export class UserForm extends View<User, UserProps> {
         <button class="set-name">Set Name</button>
         <button  class="set-agr">Set Random Age</button>
       </div>
+      <button  class="save-user">Save User</button>
     </div>
   `
   }

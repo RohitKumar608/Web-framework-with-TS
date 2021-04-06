@@ -11,7 +11,7 @@ export class Attributes<T> {
       ...update,
     }
   }
-  getAll(): T {
+  getAll = (): T => {
     return this.data
   }
 }
