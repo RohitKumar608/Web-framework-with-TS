@@ -1,5 +1,6 @@
 import { View } from './View'
-export class UserForm extends View {
+import { User, UserProps } from '../models/User'
+export class UserForm extends View<User, UserProps> {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:.set-agr': this.handleSetAge,
@@ -19,13 +20,17 @@ export class UserForm extends View {
 
   template(): string {
     return `
-    <div>
+    <div class='main'>
       <h1>User Form</h1>
-      <div>User name: ${this.model.get('name')}</div>
-      <div>User age: ${this.model.get('age')}</div>
-      <input class='user-name' />
-      <button class="set-name">Set Name</button>
-      <button  class="set-agr">Set Random Age</button>
+      <div class='user-details'>
+        <span>User name: ${this.model.get('name')}</span>
+        <span>User age: ${this.model.get('age')}</span>
+      </div>
+      <div>
+        <input placeholder='Enter user name' class='user-name' />
+        <button class="set-name">Set Name</button>
+        <button  class="set-agr">Set Random Age</button>
+      </div>
     </div>
   `
   }
