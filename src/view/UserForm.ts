@@ -1,16 +1,5 @@
-import { User } from '../models/User'
-
-export class UserForm {
-  constructor(public parent: Element, public model: User) {
-    this.bindModel()
-  }
-
-  bindModel(): void {
-    this.model.on('change', () => {
-      this.render()
-    })
-  }
-
+import { View } from './View'
+export class UserForm extends View {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:.set-agr': this.handleSetAge,
@@ -28,16 +17,6 @@ export class UserForm {
     }
   }
 
-  bindEvents(fragment: DocumentFragment): void {
-    const eventsMap = this.eventsMap()
-    for (const key in eventsMap) {
-      const [event, className] = key.split(':')
-      fragment.querySelectorAll(className).forEach((element) => {
-        element.addEventListener(event, eventsMap[key])
-      })
-    }
-  }
-
   template(): string {
     return `
     <div>
@@ -49,13 +28,5 @@ export class UserForm {
       <button  class="set-agr">Set Random Age</button>
     </div>
   `
-  }
-
-  render(): void {
-    this.parent.innerHTML = ''
-    const templateElement = document.createElement('template')
-    templateElement.innerHTML = this.template()
-    this.bindEvents(templateElement.content)
-    this.parent.append(templateElement.content)
   }
 }
